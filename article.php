@@ -1,10 +1,35 @@
+<?php
+require_once 'connection.php';
+require_once 'vendor/autoload.php';
+require_once 'function.php';
+
+$idpost =htmlspecialchars(strip_tags( $_GET["idpost"]));
+
+
+
+
+
+$requette= $db ->prepare("SELECT distinct posts.*,users.*,category.* FROM posts INNER JOIN category ON category.idcat=posts.idcat INNER JOIN users on users.iduser=posts.iduser  where idpost = :idpost " );
+$requette -> bindValue(':idpost', $idpost);
+$requette -> execute();
+
+$article = $requette ->fetch();
+
+//dump($article);
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Article</title>
+    <title>Article -  <?php echo $article["title"] ?></title>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -15,7 +40,13 @@
     <!-- Placer sa feuille de style CSS en dernière position ;) -->
     <link rel="stylesheet" href="css/style.css">
     
+
+
+
+
 </head>
+
+<?php if($article): ?>
 <body>
     <header class="bg-dark py-4 py-lg-5" >
         <div class="container">
@@ -23,7 +54,7 @@
                 <div class="col-6 col-lg-12 text-lg-center text-start">
                     <h1 class="mb-4 mb-lg-0">
                         <a href="#" title="Philosophy." class="logo text-white text-decoration-none">
-                            Philosophy.
+                           <?php echo $article["title"] ?>
                         </a>
                     </h1>
                 </div>
@@ -51,24 +82,28 @@
 
 
     <main  class="py-5 justify">
+
+
         <div class="container">
+         
             <div class="row align-items-center">
                 <div class="col-6 col-lg-12 text-lg-center">
-                    <h1>This is A Standard Format Post.</h1>
+                    <h1></h1>
                     <div class="row">
                         <div class="col col-lg-6 text-start text-lg-end">
-                            <p class="text-secondary text-sm">December 12, 2021</p>
+                            <p class="text-secondary text-sm"><?php echo formatDate($article["created_at"]) ;?></p>
                         </div>
                         <div class="col-lg-6">
 
                             <div class="d-flex  list-unstyled gap-2">
-                                <a href="#" title="Design" class="badge rounded-pill bg-primary text-decoration-none">Design</a>
-                                <a href="#" title="Photography" class="badge rounded-pill bg-primary text-decoration-none">Photography</a>
+                                <a href="categorie.php?idcat=<?php echo "{$article['idcat']}";?>" title="Design" class="badge rounded-pill bg-primary text-decoration-none"><?php echo $article["name"];?></a>
+                                <span> Auteur :<?php echo $article["lastname"];?> </span>
+                                
                             </div>
                         </div>
                     </div>
                 
-                    <img class="article-img rounded" src="images/01.jpg" alt="img">
+                    <img class="article-img rounded" src="images/upload/<?php echo $article['cover'];?>" alt="img">
                 
                 </div>
             </div>
@@ -80,19 +115,9 @@
 
                      <div class="col col-lg-6 offset-lg-3">
                         <p class="py-2 fw-bold text-justify text-start">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, veniam. Quibusdam voluptate in deleniti dignissimos. Officiis iusto reiciendis nihil minima, repellendus debitis blanditiis rerum corporis, delectus quos, enim laboriosam totam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repudiandae aperiam eos ab porro. Dicta asperiores quod accusantium cum praesentium, velit sint, temporibus, optio expedita blanditiis saepe aliquam libero dolorum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa facere illum commodi obcaecati temporibus, non voluptates modi quis magnam eaque dolorum quos odio similique nihil incidunt, quam inventore fugit eos.
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime facilis odit debitis at earum ducimus quisquam aperiam harum perferendis in minima aliquam, ullam nulla suscipit tenetur iure atque maiores eos.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, veniam. Quibusdam voluptate in deleniti dignissimos. Officiis iusto reiciendis nihil minima, repellendus debitis blanditiis rerum corporis, delectus quos, enim laboriosam totam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repudiandae aperiam eos ab porro. Dicta asperiores quod accusantium cum praesentium, velit sint, temporibus, optio expedita blanditiis saepe aliquam libero dolorum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa facere illum commodi obcaecati temporibus, non voluptates modi quis magnam eaque dolorum quos odio similique nihil incidunt, quam inventore fugit eos.
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime facilis odit debitis at earum ducimus quisquam aperiam harum perferendis in minima aliquam, ullam nulla suscipit tenetur iure atque maiores eos.
-                        
+                        <?php echo $article["content"];?>
                         </p>
-                        <!--paragraphe autre-->
-                        <p class="py-2 text-justify text-start">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quas, quod tempore quis adipisci in at sed velit minus rem illum assumenda vero laborum ratione eius illo praesentium, quos fugit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae omnis consectetur culpa magni rerum similique quaerat, dignissimos, cupiditate iusto nulla praesentium delectus obcaecati voluptatem. Voluptatibus aliquam earum dolor praesentium. Itaque.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa facere illum commodi obcaecati temporibus, non voluptates modi quis magnam eaque dolorum quos odio similique nihil incidunt, quam inventore fugit eos.
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime facilis odit debitis at earum ducimus quisquam aperiam harum perferendis in minima aliquam, ullam nulla suscipit tenetur iure atque maiores eos.
-                        </p>
+                   
                     </div>
                         
                    
@@ -194,3 +219,23 @@
     
 </body>
 </html>
+
+
+<?php else: ?>
+    <header class="bg-dark py-4 py-lg-5" >
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-lg-12 text-lg-center text-start">
+                    <h1 class="mb-4 mb-lg-0 text-white">
+                       ERREUR cette id de post n'existe pas
+
+                    </h1>
+                    <a href="index.php">
+                      retour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+   <?php endif;?>
