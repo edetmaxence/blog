@@ -8,7 +8,7 @@ $cats = $requette->fetchAll();
 
 if(!empty($_GET["idpost"])):
     $query = $db->prepare("SELECT posts.* from posts where idpost = :idpost");
-    $query->bindValue("idpost", $_GET["idpost"]);
+    $query->bindValue("idpost", $_GET["idpost"],PDO::PARAM_INT);
     $query->execute();
     $post = $query->fetch();
 
@@ -91,25 +91,24 @@ endif;
                 <form action="ajoutArticle.php" method="post" enctype="multipart/form-data">
                     <div class="col-12">
                         <label for="titreArticle" class="form-label">Titre</label>
-                        <input type="text" class="form-control" id="titreArticle" name="title" value="<?= !empty($post)? $post["title"]:'' ?>">
+                        <input type="text" class="form-control" id="titreArticle" name="title">
 
                     </div>
                     <div class="col-12">
                         <label for="content" class="form-label">Content</label>
-                        <textarea type="text" class="form-control" id="content" name="content" rows="10"> <?=!empty($post)? $post["content"]: null ?> </textarea>
+                        <textarea type="text" class="form-control" id="content" name="content" rows="10"></textarea>
                     </div>
                     
                     <div class="col-12">
                     <label for="cover" class="form-label">Image</label>
                       <div class="row">
                           <div class="col-6">
-                               
+ 
                                 <input  class=" form-control" id="cover" type="file" name="cover" > 
+                           
                         
                           </div>
-                          <div class="col-6">
-                            <span> <?=!empty($post)? "vous aviez selectionner : ". $post["cover"]: null ?></span>
-                          </div>
+                         
                       </div>
                     </div>
 
@@ -117,7 +116,7 @@ endif;
                         <label for="category" class="form-label">Categorie</label>
                         <select id="category"name="category">
                             <?php foreach ($cats as $cat) : ?>
-                                <option value="<?php echo $cat['idcat'] ?> " <?= $cat['idcat'] ==  $post["idcat"] ? "selected" : null ?> ><?php echo $cat['name']; ?> </option>
+                                <option value="<?= $cat['idcat'] ?> " ><?php echo $cat['name']; ?> </option>
                             <?php endforeach; ?>
                         </select>
                     </div>

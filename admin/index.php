@@ -95,6 +95,7 @@ $posts = $requette->fetchAll();
 
                         <tr>
 
+                            <td><?= "{$post['idpost']}"; ?></td>
                             <td><?= "{$post['title']}"; ?></td>
                             <td><?= "{$post['created_at']}"; ?></td>
                             <td><?= "{$post['name']}"; ?></td>
@@ -102,7 +103,7 @@ $posts = $requette->fetchAll();
 
 
 
-                            <td><a href="formCreaArticle.php?idpost=<?= "{$post['idpost']}"; ?>"> EDITER </a></td>
+                            <td><a href="edit.php?idpost=<?= "{$post['idpost']}"; ?>"> EDITER </a></td>
                             <td><a href="deleteArticle.php?idpost=<?= "{$post['idpost']}"; ?>"> SUPPRIMER </a></td>
                             <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="<?php echo "{$post['idpost']}"; ?>">Open modal for @mdo</button></td>
 

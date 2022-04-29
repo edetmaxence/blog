@@ -14,7 +14,7 @@ $content=  htmlspecialchars(strip_tags($_POST["content"]));
 
 $idcat = $_POST["category"][0];
 
-if(!isset($_FILES["cover"])):
+if(!empty($_FILES["cover"])):
 
 
 
@@ -36,13 +36,13 @@ $erreur=null;
 
         if (verifExtension($extension,$type)){
 
-
+          
                 if($taille <= $poidsMax){
                          //ajout des images dans le dossier adequat
-                        
+                       
                         move_uploaded_file($_FILES["cover"]["tmp_name"],
                         "../images/upload/$imgName");
-                       // $cat= $db ->prepare("UPDATE  posts (title,content,cover,created_at,idcat,iduser) SET (:title,:content,:cover,now(),:idcat,:iduser)");
+                        $cat= $db ->prepare("INSERT INTO  posts (title,content,cover,created_at,idcat,iduser) VALUES (:title,:content,:cover,now(),:idcat,:iduser)");
                         $cat -> bindValue(':title',$title);
                         $cat -> bindValue(':content',$content);
                         $cat -> bindValue(':cover',$imgName);
@@ -56,7 +56,7 @@ $erreur=null;
                 
                 
                 else{
-                    $erreur= "le poids est trop gros";
+                    echo "le poids est trop gros";
                 } 
                 
                 
