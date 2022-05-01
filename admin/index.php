@@ -25,10 +25,10 @@ $posts = $requette->fetchAll();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin</title>
-
+    <script src="js/delete.js" defer></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+   
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -55,11 +55,11 @@ $posts = $requette->fetchAll();
 
                     <nav>
                         <ul class="d-lg-flex align-items-center justify-content-center py-3 gap-5">
-                            <li><a href="#" title="Home" class="text-secondary text-decoration-none">Home</a></li>
-                            <li><a href="inscription/formInscription.php" title="Inscription" class="text-secondary text-decoration-none">Inscription</a></li>
+                            <li><a href="../index.php" title="Home" class="text-secondary text-decoration-none">Home</a></li>
+                            <li><a href="../inscription/formInscription.php" title="Inscription" class="text-secondary text-decoration-none">Inscription</a></li>
                             <li><a href="../deconnection.php" title="deconnection" class="text-secondary text-decoration-none">Deconnexion</a></li>
-                            <li><a href="admin/" title="About" class="text-secondary text-decoration-none">list Articles</a></li>
-                            <li><a href="admin/formCreaArticle.php" title="About" class="text-secondary text-decoration-none">Creation Article</a></li>
+                            <li><a href="#" title="About" class="text-secondary text-decoration-none">list Articles</a></li>
+                            <li><a href="formCreaArticle.php" title="About" class="text-secondary text-decoration-none">Creation Article</a></li>
                             <li><span class="text-secondary text-decoration-none"> Bonjour <?php echo $_SESSION["admin"] ?></span></li>
                         </ul>
                     </nav>
@@ -67,13 +67,17 @@ $posts = $requette->fetchAll();
             </div>
         </div>
 
-
+ 
     </header>
-
+   <div class="gradient"></div>
     <body>
 
         <div class="container">
+        <div class="row mt-4">
+            <div class="col-6  d-flex justify-content-start"><span> Lists des posts</span></div>
+            <div class="col-6 d-flex justify-content-end "><a href="formCreaArticle.php" title="About" class="btn btn-outline-secondary text-decoration-none">Creation Article</a></div>
 
+        </div>
 
             <table class="table">
                 <thead>
@@ -101,14 +105,10 @@ $posts = $requette->fetchAll();
                             <td><?= "{$post['name']}"; ?></td>
                             <td><?= "{$post['lastname']}"; ?></td>
 
-
-
                             <td><a href="edit.php?idpost=<?= "{$post['idpost']}"; ?>"> EDITER </a></td>
-                            <td><a href="deleteArticle.php?idpost=<?= "{$post['idpost']}"; ?>"> SUPPRIMER </a></td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="<?php echo "{$post['idpost']}"; ?>">Open modal for @mdo</button></td>
-
+                            <td><a href="deleteArticle.php?id=<?= "{$post['idpost']}"; ?>" class="btn btn-primary btnDelete" > SUPPRIMER </a></td>
+                            
                         </tr>
-
 
 
 
@@ -141,50 +141,25 @@ $posts = $requette->fetchAll();
 
 
 <!-- modal -->
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id=""> </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
-        </div>
+<div class="modal" id="modalDelete" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>MSupprimer ??</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+        <a href="#"  class="btn btn-primary btnDeleteModal">Oui Supprimer</a>
+      </div>
     </div>
+  </div>
 </div>
 
-<!--<script>  var post = <?php //"{$post['idpost']}" ;
-                            ?>;
-               
-        
        
+
+           
         
-    
-        </script>
-       
- <script>
-           if(post){
-               element.document.querySelector(".    ");
-                element.addEventListener("click",()=>{
-                console.log(post);
-            }) 
-           }
-           
-       </script>
-           
-        -->
