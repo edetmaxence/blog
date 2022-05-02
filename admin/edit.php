@@ -41,21 +41,17 @@ if (!empty($_POST)) {
     $content = htmlspecialchars(strip_tags($_POST['content']));
     $category = htmlspecialchars(strip_tags($_POST['category']));
 
+    $imgName = $article['cover'];
 
     // Vérifie que mes champs soient bien remplis
     if (!empty($title) && !empty($content) && !empty($category)) {
 
-       
-       
+        if (!empty($_FILES['cover']) && $_FILES['cover']['error'] === 0) {
 
+      
 
-        if (!empty($_FILES['cover']) && $_FILES['cover']['error'] === 4) {
-
-            echo "bite";
             // Suppression de l'ancienne image
-             if($_FILES['cover']["name"]=== $article['cover']){
-            unlink("../images/upload/{$article['cover']}");
-        }
+
 
             $imgName = new SplFileInfo($_FILES["cover"]["name"]);
 
@@ -71,39 +67,43 @@ if (!empty($_POST)) {
             $poidsMax = 1 * 1048576;
             // Upload de la nouvelle image
 
+
+
             if (verifExtension($extension, $type)) {
 
 
                 if ($taille <= $poidsMax) {
                     //ajout des images dans le dossier adequat
 
-                        move_uploaded_file(
+
+
+                    unlink("../images/upload/{$article['cover']}");
+
+
+                    move_uploaded_file(
                         $_FILES["cover"]["tmp_name"],
                         "../images/upload/$imgName"
-
-                        
                     );
-                  
-                    
                 }
-              
             }
             // Mise à jour en BDD seulement si la variable "$error" est égale à NULL
-        
-             
-                $query = $db->prepare("UPDATE posts SET title=:title,content=:content,cover=:cover,idcat=:idcat where idpost=:idpost");
-                $query->bindValue(":title", $title);
-                $query->bindValue(":content", $content);
-                $query->bindValue(":cover", $imgName);
-                $query->bindValue(":idcat", $category);
-                $query->bindValue(":idpost", $id);
-                $query->execute();
 
-                $success = 'L\'article à bien été modifié';
 
-                header("Location: ../index.php");
-            }
-        
+
+        }
+
+            $query = $db->prepare("UPDATE posts SET title=:title,content=:content,cover=:cover,idcat=:idcat where idpost=:idpost");
+            $query->bindValue(":title", $title);
+            $query->bindValue(":content", $content);
+            $query->bindValue(":cover", $imgName);
+            $query->bindValue(":idcat", $category);
+            $query->bindValue(":idpost", $id);
+            $query->execute();
+
+            $success = 'L\'article à bien été modifié';
+
+            header("Location: ../index.php");
+
     } else {
         $error = 'Le titre, le contenu et la catégorie sont obligatoires';
     }
