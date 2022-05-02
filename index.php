@@ -128,10 +128,6 @@ session_start();
                 </div>
             </div>
         </main>
-        <footer class="bg-dark">
-            <div class="container">
-                <p class="m-0 text-white py-4">&copy; Copyright Philosophy 2022</p>
-            </div>
-        </footer>
+        <?php include_once 'footer.php' ?>
     </body>
 </html>

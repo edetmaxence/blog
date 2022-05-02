@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+
+
 require_once '../connection.php';
 require_once '../function.php';
 require_once '../vendor/autoload.php';
@@ -45,6 +49,7 @@ endif;
 </head>
 
 <body>
+    <?php if(isset($_SESSION["admin"])): ?>
     <header class="bg-dark py-4 py-lg-5 ">
         <div class="container">
             <div class="row">
@@ -131,3 +136,8 @@ endif;
 </body>
 
 </html>
+<?php else:
+    header('Location: ../connection/index.php');
+    
+    ?>
+<?php endif;?>

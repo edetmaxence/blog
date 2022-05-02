@@ -3,6 +3,9 @@ session_start();
 require_once '../connection.php';
 require_once '../vendor/autoload.php';
 
+
+
+
 //$firstname = htmlspecialchars(strip_tags($_POST["firstname"]));
 //$lastname = htmlspecialchars(strip_tags($_POST["lastname"]));
 $email = htmlspecialchars(strip_tags($_POST["email"]));

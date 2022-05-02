@@ -32,7 +32,7 @@ else {
 <?php
 
 else:
-  echo "bite";  
+  header('Location: index.php');
 endif;
 
 

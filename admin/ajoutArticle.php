@@ -74,6 +74,6 @@ $erreur=null;
 
 endif;
 else:
-        echo "erreur";
+        header('Location: index.php');
 endif;
 ?>
