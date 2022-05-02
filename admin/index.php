@@ -73,6 +73,11 @@ $posts = $requette->fetchAll();
     <body>
 
         <div class="container">
+            <?php if(isset($_GET['successDelete'])): ?>
+                    <div class="alert alert-success mb-4">
+                        L'article à bien été supprimé !
+                    </div>
+				<?php endif; ?>
         <div class="row mt-4">
             <div class="col-6  d-flex justify-content-start"><span> Lists des posts</span></div>
             <div class="col-6 d-flex justify-content-end "><a href="formCreaArticle.php" title="About" class="btn btn-outline-secondary text-decoration-none">Creation Article</a></div>

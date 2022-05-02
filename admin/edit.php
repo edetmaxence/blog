@@ -46,16 +46,16 @@ if (!empty($_POST)) {
     if (!empty($title) && !empty($content) && !empty($category)) {
 
        
-        if($_FILES['cover']["name"]=== $article['cover']){
-            unlink("../images/upload/{$article['cover']}");
-        }
+       
 
 
         if (!empty($_FILES['cover']) && $_FILES['cover']['error'] === 4) {
 
             echo "bite";
             // Suppression de l'ancienne image
-            
+             if($_FILES['cover']["name"]=== $article['cover']){
+            unlink("../images/upload/{$article['cover']}");
+        }
 
             $imgName = new SplFileInfo($_FILES["cover"]["name"]);
 
@@ -101,7 +101,7 @@ if (!empty($_POST)) {
 
                 $success = 'L\'article à bien été modifié';
 
-                //header("Location: ../index.php");
+                header("Location: ../index.php");
             }
         
     } else {

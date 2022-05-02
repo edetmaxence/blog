@@ -2,7 +2,7 @@
  * Suppression d'article modal Bootstrap
  */
 console.log("bte");
-const btnDelete =document.querySelectorAll('btnDelete');
+const btnDelete =document.querySelectorAll('.btnDelete');
 btnDelete.forEach(btn => {
     btn.addEventListener('click',(event) =>{
         event.preventDefault();

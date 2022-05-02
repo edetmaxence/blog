@@ -21,14 +21,7 @@
   <div class="container d-flex align-item-center ">
     <div class="row">
        <form action="connectionUser.php" method="post">
-      <div class="col-12">
-        <label for="exampleInputEmail1" class="form-label">first Name</label>
-        <input type="text" class="form-control" id="lastanme" name="firstname">
-      </div>
-      <div class="col-12">
-        <label for="exampleInputEmail1" class="form-label">last Name</label>
-        <input type="text" class="form-control" id="lastanme" name="lastname">
-      </div>
+      
       <div class="col-12">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" name="email">
